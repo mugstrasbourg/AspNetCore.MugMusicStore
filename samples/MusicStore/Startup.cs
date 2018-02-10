@@ -75,7 +75,7 @@ namespace MusicStore
             services.AddSession();
 
             // Add the system clock service
-            services.AddSingleton<ISystemClock, SystemClock>();
+            //services.AddSingleton<ISystemClock, SystemClock>();
 
             // Configure Auth
             services.AddAuthorization(options =>

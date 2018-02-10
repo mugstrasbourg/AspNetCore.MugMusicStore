@@ -13,10 +13,17 @@ namespace MusicStore.Controllers
     public class HomeControl
     {
         private readonly AppSettings _appSettings;
+        private readonly Components.ISystemClock _systemClock;
 
-        public HomeControl(IOptions<AppSettings> options)
+        public HomeControl(
+            IOptions<AppSettings> options,
+            Components.ISystemClock systemClock)
         {
+            if (options.Value.SiteTitle == null)
+                throw new ArgumentNullException("Title cannot be null. Check your IOptions settings");
+
             _appSettings = options.Value;
+            _systemClock = _systemClock ?? throw new ArgumentNullException(nameof(systemClock));
         }
         //
         // GET: /Home/
