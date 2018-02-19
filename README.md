@@ -2,6 +2,8 @@
 
 ## Docker
 
+### Déploiement local
+
 Maintenant que le site est corrigé et est parfaitement fonctionnel sous IIS Express, voyons voir s'il n'est pas possible de le faire tourner sur Docker.
 
 Prérequis :
@@ -25,7 +27,7 @@ Lorsque vous lancez l'opération pour la première fois, cela peut durer quelque
 Que se passe t-il ?
 
 3) Pour gérer la connexion à SQL Server, le fichier **docker-compose.yml** doit être modifié.
-L'image de SQL Server étant relativement conséquente à télécharger, on pourra directement passer au point 4)
+L'image de SQL Server pour Windows étant relativement conséquente à télécharger, il est fortement recommandé d'utiliser les containers Linux pour ce lab ou bien de directement passer au point 4).
 
 **Windows**
 
@@ -76,3 +78,32 @@ services.AddDbContext<MusicStoreContext>(
 6) Relancer le projet sur Docker afin de vérifier que tout est fonctionnel.
 
 1ère étape accomplie !
+
+### Déploiement sur Azure
+
+Et si on publiait maintenant tout cela sur Azure ?
+Il est tout à fait possible de publier cela sur un App Service Linux mais intéressons-nous plutôt à **Web Apps for Containers**.
+
+1) Dans Visual Studio, faire un clic droit sur le projet web et choisir Publier. Choisir **Container Registry** puis **Create New Azure Container Registry** ou bien **Docker Hub** si vous disposez d'un compte.
+
+![Add Docker Support](assets/add_docker_support.png)
+
+2) Créer un nouveau **Azure Container Registry** puis publier l'image. Patienter quelques instants le temps de la publication de l'image sur Azure.
+
+![Publish Image](assets/publish_container.png)
+
+3) Depuis le portail Azure, créer une nouvelle **Web App for Containers**.
+
+![Create Web App for Containers](assets/create_web_app_for_containers.png)
+
+4) Configurer celle-ci en sélectionnant l'image dans l'**Azure Container Registry**, cliquer sur le bouton **OK** pour valider la sélection de l'image puis sur **Create** pour démarrer le déploiement.
+
+![Configure web app](assets/configure_web_app.png)
+
+Patienter quelques secondes le temps du déploiement.
+
+5) Il est possible de suivre l'avancé du déploiement depuis les notifications. Dès que le déploiement aura été effectué, cliquer sur le bouton **Go to resource** puis sur l'URL du site.
+
+![Notifications](assets/notifications.png)
+
+Le site s'affiche dans le navigateur. 
